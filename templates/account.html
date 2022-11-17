@@ -11,7 +11,10 @@
             <table class="table table-striped">
                 <tr>
                     <td>Username:</td>
-                    <td>{{ account.username }}</td>
+                    <td>{{ account.username }}
+                        <a href="/update_username/" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaleditcondition{{ account.username }}">Edit</a>
+
+                    </td>
                 </tr>
                 <tr>
                     <td>Email:</td>
@@ -46,6 +49,36 @@
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="text" class="form-control" name="email" value="{{account.email}}" readonly>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Update</button>
+                                </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODEL WINDOW FOR EDITING -->
+            
+                <div id="modaleditcondition{{ account.username }}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Update Information</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{url_for('update_username')}}" method="POST">
+
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" name="username" value="{{account.username}}" readonly>
                                 </div>
 
 
