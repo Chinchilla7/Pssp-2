@@ -543,9 +543,18 @@ def delete_condition(): # note this function needs to match name in html form ac
         return redirect(url_for('get_patient_details', mrn=form_mrn))
 
 
-
-
-
+# this endpoint is for updating email
+@app.route('/update_email', methods = ['GET', 'POST'])
+def update_email(): # note this function needs to match name in html form action
+    if request.method == 'POST':
+        ## get email from form
+        form_id = request.form.get('id')
+        user = Users.query.filter_by(email=form_id).first()
+        user.email = request.form.get('email')
+        db.session.commit()
+        flash("Email Updated Successfully")
+        ## then return to patient details page
+        return redirect(url_for('account.html', account=account))
 
 
 
