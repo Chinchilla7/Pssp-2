@@ -202,6 +202,8 @@ def login():
             db.session.commit()
             if session['account_type'] == 'admin':
                 return redirect(url_for('get_gui_patients'))
+            elif session['account_type'] == 'physician':
+                return redirect(url_for('get_gui_patients'))
             elif session['account_type'] == 'patient':
                 ## go to /details/{{row.mrn}} 
                 return redirect(url_for('get_patient_details', mrn=session['mrn']))
@@ -217,6 +219,9 @@ def register():
         if request.form['account_type'] == 'admin':
             # redirect to admin registration page
             return redirect(url_for('register_admin'))
+        elif request.form['account_type'] == 'physician':
+            # redirect to physician registration page
+            return redirect(url_for('register_physician'))
         elif request.form['account_type'] == 'patient':
             # redirect to patient registration page
             return redirect(url_for('register_patient'))
