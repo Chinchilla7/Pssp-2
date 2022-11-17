@@ -413,7 +413,10 @@ def get_gui_patients():
     if 'loggedin' in session and session['account_type'] == 'admin':
         returned_Patients = Patients.query.all() # documentation for .query exists: https://docs.sqlalchemy.org/en/14/orm/query.html
         return render_template("patient_all.html", patients = returned_Patients)
-    else:
+    elif 'loggedin' in session and session['account_type'] == 'admin':
+        returned_Patients = Patients.query.all() # documentation for .query exists: https://docs.sqlalchemy.org/en/14/orm/query.html
+        return render_template("patient_all.html", patients = returned_Patients)
+    else: 
         return redirect(url_for('get_patient_details', mrn=session['mrn']))
 
 # this endpoint is for inserting in a new patient
@@ -548,8 +551,8 @@ def delete_condition(): # note this function needs to match name in html form ac
 def update_email(): # note this function needs to match name in html form action
     if request.method == 'POST':
         ## get email from form
-        account = Users.query.filter_by(id=session['id']).first()
-        account.email = request.form.get('email')
+        user = Users.query.filter_by(id=session['id']).first()
+        user.email = request.form.get('email')
         db.session.commit()
         flash("Email Updated Successfully")
         ## then return to account details page
@@ -558,13 +561,16 @@ def update_email(): # note this function needs to match name in html form action
 @app.route('/update_username', methods = ['GET', 'POST'])
 def update_username(): # note this function needs to match name in html form action
     if request.method == 'POST':
-        ## get email from form
+        ## get username from form
         account = Users.query.filter_by(id=session['id']).first()
         account.username = request.form.get('username')
         db.session.commit()
         flash("Username Updated Successfully")
         ## then return to account details page
         return redirect(url_for('account'))
+
+
+
 
 ##### CREATE BASIC API ENDPOINTS #####
 # get all Patients
