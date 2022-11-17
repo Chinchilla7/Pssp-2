@@ -548,13 +548,12 @@ def delete_condition(): # note this function needs to match name in html form ac
 def update_email(): # note this function needs to match name in html form action
     if request.method == 'POST':
         ## get email from form
-        form_id = request.form.get('id')
-        user = Users.query.filter_by(email=form_id).first()
-        user.email = request.form.get('email')
+        account = Users.query.filter_by(id=session['id']).first()
+        account.email = request.form.get('email')
         db.session.commit()
         flash("Email Updated Successfully")
-        ## then return to patient details page
-        return redirect(url_for('account.html', account=account))
+        ## then return to account details page
+        return render_template('account.html', account=account)
 
 
 
