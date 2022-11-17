@@ -15,9 +15,8 @@
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>{{ account.email }}</td>
-                    <td> 
-                        <a href="/update_email/{{ account.email }}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaleditcondition{{ account.email }}">Edit</a>
+                    <td>{{ account.email }}
+                        <a href="/update_email/" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaleditcondition{{ account.email }}">Edit</a>
                     </td>
                 </tr>
                 <tr>
@@ -32,39 +31,39 @@
                     <td>Account MRN:</td>
                     <td>{{ account.mrn }}</td>
                 </tr>
+
+                <!-- MODEL WINDOW FOR EDITING -->
+            
+                <div id="modaleditcondition{{ account.email }}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Update Information</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{url_for('update_email')}}" method="POST">
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" name="email" value="{{account.email}}" readonly>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Update</button>
+                                </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </table>
         </div>
-    </div>
-
-                                            <!-- MODEL WINDOW FOR EDITING -->
-            
-                                            <div id="modaleditcondition{{ account.email }}" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Update Information</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form action="{{url_for('update_email')}}" method="POST">
-            
-                                                            <div class="form-group">
-                                                                <label for="email">Email</label>
-                                                                <input type="text" class="form-control" name="email" value="{{account.email}}" readonly>
-                                                            </div>
-        
-            
-                                                            <div class="form-group">
-                                                                <button class="btn btn-primary" type="submit">Update</button>
-                                                            </div>
-            
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+    </div>            
             
 </div>
 
