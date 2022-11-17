@@ -553,12 +553,18 @@ def update_email(): # note this function needs to match name in html form action
         db.session.commit()
         flash("Email Updated Successfully")
         ## then return to account details page
-        return render_template('account.html', account=account)
+        return redirect(url_for('account'))
 
-
-
-
-
+@app.route('/update_username', methods = ['GET', 'POST'])
+def update_username(): # note this function needs to match name in html form action
+    if request.method == 'POST':
+        ## get email from form
+        account = Users.query.filter_by(id=session['id']).first()
+        account.username = request.form.get('username')
+        db.session.commit()
+        flash("Username Updated Successfully")
+        ## then return to account details page
+        return redirect(url_for('account'))
 
 ##### CREATE BASIC API ENDPOINTS #####
 # get all Patients
