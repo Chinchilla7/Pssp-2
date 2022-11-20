@@ -555,6 +555,8 @@ def update_email(): # note this function needs to match name in html form action
         ## then return to account details page
         return redirect(url_for('account'))
 
+# this endpoint is for updating username
+
 @app.route('/update_username', methods = ['GET', 'POST'])
 def update_username(): # note this function needs to match name in html form action
     if request.method == 'POST':
