@@ -548,6 +548,7 @@ def delete_condition(): # note this function needs to match name in html form ac
 def update_email(): # note this function needs to match name in html form action
     if request.method == 'POST':
         ## get email from form
+        form_id = request.form.get('id')
         account = Users.query.filter_by(id=session['id']).first()
         account.email = request.form.get('email')
         account.username = request.form.get('username')
@@ -556,19 +557,6 @@ def update_email(): # note this function needs to match name in html form action
         account.mrn = request.form.get('mrn')
         db.session.commit()
         flash("Account Details Updated Successfully")
-        ## then return to account details page
-        return redirect(url_for('account'))
-
-# this endpoint is for updating username
-
-@app.route('/update_username', methods = ['GET', 'POST'])
-def update_username(): # note this function needs to match name in html form action
-    if request.method == 'POST':
-        ## get username from form
-        account = Users.query.filter_by(id=session['id']).first()
-        account.username = request.form.get('username')
-        db.session.commit()
-        flash("Username Updated Successfully")
         ## then return to account details page
         return redirect(url_for('account'))
 
