@@ -430,6 +430,9 @@ def get_gui_patients():
     if 'loggedin' in session and session['account_type'] == 'admin':
         returned_Patients = Patients.query.all() # documentation for .query exists: https://docs.sqlalchemy.org/en/14/orm/query.html
         return render_template("patient_all.html", patients = returned_Patients)
+    elif 'loggedin' in session and session['account_type'] == 'physician':
+        returned_Patients = Patients.query.all() # documentation for .query exists: https://docs.sqlalchemy.org/en/14/orm/query.html
+        return render_template("patient_all.html", patients = returned_Patients)
     else: 
         return redirect(url_for('get_patient_details', mrn=session['mrn']))
 
