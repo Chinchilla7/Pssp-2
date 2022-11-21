@@ -281,7 +281,7 @@ def register_physician():
         else:
             datecreated = datetime.datetime.now()
             lastlogin = datetime.datetime.now()
-            new_user = Users(username, password, email, account_type, mrn, license, datecreated, lastlogin)
+            new_user = Users(username, password, email, account_type, mrn, datecreated, lastlogin)
             db.session.add(new_user)
             db.session.commit()
             msg = "You have successfully registered a PHYSICIAN account!"
@@ -369,6 +369,23 @@ def account():
         return render_template('account.html', account=account)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
+
+# this endpoint is for updating account details
+@app.route('/update_account', methods = ['GET', 'POST'])
+def update_account(): # note this function needs to match name in html form action
+    if request.method == 'POST':
+        ## get email from form
+        form_id = request.form.get('id')
+        account = Users.query.filter_by(id=session['id']).first()
+        account.email = request.form.get('email')
+        account.username = request.form.get('username')
+        account.account_type = request.form.get('account_type')
+        account.id = request.form.get('id')
+        account.mrn = request.form.get('mrn')
+        db.session.commit()
+        flash("Account Details Updated Successfully")
+        ## then return to account details page
+        return redirect(url_for('account'))
 
 @app.route('/dashboard')
 def dashboard():
@@ -543,22 +560,6 @@ def delete_condition(): # note this function needs to match name in html form ac
         return redirect(url_for('get_patient_details', mrn=form_mrn))
 
 
-# this endpoint is for updating account details
-@app.route('/update_account', methods = ['GET', 'POST'])
-def update_email(): # note this function needs to match name in html form action
-    if request.method == 'POST':
-        ## get email from form
-        form_id = request.form.get('id')
-        account = Users.query.filter_by(id=session['id']).first()
-        account.email = request.form.get('email')
-        account.username = request.form.get('username')
-        account.account_type = request.form.get('account_type')
-        account.id = request.form.get('id')
-        account.mrn = request.form.get('mrn')
-        db.session.commit()
-        flash("Account Details Updated Successfully")
-        ## then return to account details page
-        return redirect(url_for('account'))
 
 
 
